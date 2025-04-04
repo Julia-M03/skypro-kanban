@@ -1,10 +1,11 @@
-export function Card() {
+
+export function Card({card}) {
     return (
         <div className="cards__item">
                     <div className="cards__card card">
                         <div className="card__group">
                             <div className="card__theme _orange">
-                                <p className="_orange">Web Design</p>
+                                <p className="_orange">{card.topic}</p>
                             </div>
                             <a href="#popBrowse" target="_self">
                                 <div className="card__btn">
@@ -16,7 +17,7 @@ export function Card() {
                         </div>
                         <div className="card__content">
                             <a href="" target="_blank">
-                                <h3 className="card__title">Название задачи</h3>
+                                <h3 className="card__title">{card.title}</h3>
                             </a>
                             <div className="card__date">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
@@ -30,7 +31,7 @@ export function Card() {
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <p>30.10.23</p>
+                                <p>{card.date}</p>
                             </div>
                         </div>
                     </div>
