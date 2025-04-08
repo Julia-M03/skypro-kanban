@@ -1,8 +1,8 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+.loader { 
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  height: 650px;
 }
 
 .logo {
@@ -820,7 +820,7 @@ body {
   padding: 0;
 }
 .header__pop-user-set {
-  display: none;
+  display: block;
   position: absolute;
   top: 61px;
   right: 0;
@@ -864,6 +864,7 @@ body {
   font-weight: 600;
   line-height: 1;
   text-transform: uppercase;
+  text-align: left;
 }
 
 .cards {
