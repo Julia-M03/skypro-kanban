@@ -6,6 +6,16 @@ import { PopBrowse } from './components/PopBrowse/PopBrowse'
 import { PopNewCard } from './components/PopNewCard/PopNewCard'
 import { PopUser } from './components/PopUser/PopUser'
 import { Loader } from './components/Loader'
+import styled from 'styled-components'
+
+
+const Wrapper = styled.div`
+  max-width: 100%;
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  background-color: #F1F1F1;
+`;
 
 
 function App() {
@@ -19,7 +29,7 @@ function App() {
 
   return (
     <>
-      <div className="wrapper">
+      <Wrapper>
         {/* <!-- pop-up start--> */}
 
         <PopUser/>
@@ -33,12 +43,10 @@ function App() {
         <Header/>
 
         {
-          loading ? <Loader/> : <Main />
+          loading ? <Loader/> : <Main/>
         }
 
-        
-
-      </div>
+      </Wrapper>
     </>
   )
 }
