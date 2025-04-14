@@ -1,25 +1,70 @@
+import styled from "styled-components";
+import { CardContent, CardDate, CardGroup, CardNumber, CardPoint, CardPoints, CardsCard, CardsItem, CardTitle } from "./Card.styled";
 
-export function Card({card}) {
+  
+// const Orange = styled.div`
+//       background-color: #FFE4C2;
+//       color: #FF6D00;
+// ` ;
+// const Green = styled.div`
+//       background-color: #B4FDD1;
+//       color: #06B16E;
+// `;
+// const Purple = styled.div`
+//       background-color: #E9D4FF;
+//       color: #9A48F1;
+// `;
+
+// const colors = {
+//     primery: "#FFE4C2",
+//     secondary: "#06B16E",
+//     tertiary: "#9A48F1",
+// };
+ 
+ const CardTopic = styled.div`
+    width: auto;
+    height: 20px;
+    padding: 5px 14px;
+    border-radius: 18px;
+    background-color: ${({ $colors }) =>
+        $colors === "Orange" ? "#FFE4C2" : $colors === "Green" ? "#B4FDD1" 
+        : $colors === "Purple" ? "#E9D4FF" : "#EEEEE"
+};
+
+    p {
+    font-size: 10px;
+    font-weight: 600;
+    line-height: 10px;
+    color: ${({ $colors }) =>
+        $colors === "Orange" ? "#FF6D00" : $colors === "Green" ? "#06B16E" 
+        : $colors === "Purple" ? "#9A48F1" : "#EEEEE"
+};
+    }
+  `;
+
+
+export function Card({ card }) {
+    let topicClass = "";
+    if (card.topic === "Web Design") topicClass = "Orange";
+    else if (card.topic === "Research") topicClass = "Green";
+    else if (card.topic === "Copywriting") topicClass = "Purple";
+
     return (
-        <div className="cards__item">
-                    <div className="cards__card card">
-                        <div className="card__group">
-                            <div className="card__theme _orange">
-                                <p className="_orange">{card.topic}</p>
-                            </div>
+        <CardsItem>
+                    <CardsCard>
+                        <CardGroup>
+                            <CardTopic $colors={topicClass}><p>{card.topic}</p></CardTopic>
                             <a href="#popBrowse" target="_self">
-                                <div className="card__btn">
-                                    <div></div>
-                                    <div></div>
-                                    <div></div>
-                                </div>
+                                <CardPoints>
+                                    <CardPoint/><CardPoint/><CardPoint/>
+                                </CardPoints>
                             </a>
-                        </div>
-                        <div className="card__content">
+                        </CardGroup>
+                        <CardContent>
                             <a href="" target="_blank">
-                                <h3 className="card__title">{card.title}</h3>
+                                <CardTitle>{card.title}</CardTitle>
                             </a>
-                            <div className="card__date">
+                            <CardDate>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
                                     <g clipPath="url(#clip0_1_415)">
                                         <path d="M10.5625 2.03125H2.4375C1.7644 2.03125 1.21875 2.5769 1.21875 3.25V10.5625C1.21875 11.2356 1.7644 11.7812 2.4375 11.7812H10.5625C11.2356 11.7812 11.7812 11.2356 11.7812 10.5625V3.25C11.7812 2.5769 11.2356 2.03125 10.5625 2.03125Z" stroke="#94A6BE" strokeWidth="0.8" strokeLinejoin="round" />
@@ -31,10 +76,10 @@ export function Card({card}) {
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <p>{card.date}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                <CardNumber>{card.date}</CardNumber>
+                            </CardDate>
+                        </CardContent>
+                    </CardsCard>
+                </CardsItem>
     )
 }
