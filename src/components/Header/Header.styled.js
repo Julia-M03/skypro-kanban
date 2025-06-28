@@ -54,9 +54,7 @@ export const ButtonNewCard = styled.button`
   line-height: 1;
   font-weight: 500;
   margin-right: 20px;
-  a {
-  color: #FFFFFF;
-}
+  
 &:hover {
   background-color: #33399b;
 }

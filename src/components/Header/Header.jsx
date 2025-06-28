@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { ButtonExit, ButtonNewCard, Container, HeaderBlock, HeaderNav, HeaderSet, HeaderUser, Logo, SetMail, SetName, SetTheme, SHeader } from "./Header.styled";
+import { useNavigate } from "react-router-dom";
 
 
 export function Header() {
 
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -19,7 +21,7 @@ export function Header() {
           </div>
 
           <HeaderNav>
-            <ButtonNewCard><a href="#popNewCard">Создать новую задачу</a></ButtonNewCard>
+            <ButtonNewCard onClick={() => navigate("cards/create")}>Создать новую задачу</ButtonNewCard>
             <HeaderUser as="a" href="#" onClick={() => setIsOpen(!isOpen)} >Ivan Ivanov</HeaderUser>
             {
               isOpen ? <HeaderSet id="user-set-target">
@@ -29,7 +31,7 @@ export function Header() {
                   <p>Темная тема</p>
                   <input type="checkbox" className="checkbox" name="checkbox"></input>
                 </SetTheme>
-                <ButtonExit><a href="#popExit">Выйти</a></ButtonExit>
+                <ButtonExit onClick={() => navigate("/exit")}>Выйти</ButtonExit>
               </HeaderSet> : null
             }
           </HeaderNav>

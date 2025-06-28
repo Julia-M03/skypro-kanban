@@ -1,4 +1,13 @@
+// import { useMemo } from "react";
+// import { useParams } from "react-router-dom"
+
 export function PopBrowse() {
+  // const { id } = useParams();
+  // const word = useMemo(
+  //   () => words.find((w) => w.id === id) || { name: "", translation: ""},
+  //   [id]
+  // );
+
     return (
         <div className="pop-browse" id="popBrowse">
           <div className="pop-browse__container">
