@@ -1,26 +1,8 @@
 import styled from "styled-components";
 import { CardContent, CardDate, CardGroup, CardNumber, CardPoint, CardPoints, CardsCard, CardsItem, CardTitle } from "./Card.styled";
+import { Link } from "react-router-dom";
 
   
-// const Orange = styled.div`
-//       background-color: #FFE4C2;
-//       color: #FF6D00;
-// ` ;
-// const Green = styled.div`
-//       background-color: #B4FDD1;
-//       color: #06B16E;
-// `;
-// const Purple = styled.div`
-//       background-color: #E9D4FF;
-//       color: #9A48F1;
-// `;
-
-// const colors = {
-//     primery: "#FFE4C2",
-//     secondary: "#06B16E",
-//     tertiary: "#9A48F1",
-// };
- 
  const CardTopic = styled.div`
     width: auto;
     height: 20px;
@@ -49,21 +31,22 @@ export function Card({ card }) {
     else if (card.topic === "Research") topicClass = "Green";
     else if (card.topic === "Copywriting") topicClass = "Purple";
 
+
     return (
         <CardsItem>
                     <CardsCard>
                         <CardGroup>
                             <CardTopic $colors={topicClass}><p>{card.topic}</p></CardTopic>
-                            <a href="#popBrowse" target="_self">
+                            <Link to={`/cards/${card.id}`} >
                                 <CardPoints>
                                     <CardPoint/><CardPoint/><CardPoint/>
                                 </CardPoints>
-                            </a>
+                            </Link>
                         </CardGroup>
                         <CardContent>
-                            <a href="" target="_blank">
+                            <Link to={`/cards/${card.id}`}>
                                 <CardTitle>{card.title}</CardTitle>
-                            </a>
+                            </Link>
                             <CardDate>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13" fill="none">
                                     <g clipPath="url(#clip0_1_415)">

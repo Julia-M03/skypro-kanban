@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import { Calendar } from "../Calendar/Calendar";
 
 
 export function PopNewCard() {
+
+    const navigate = useNavigate();
+
+    function handleCloseWindow(event) {
+        event.preventDefault()
+        navigate("/")
+    }
 
     return (
         <div className="pop-new-card" id="popNewCard">
@@ -9,7 +17,7 @@ export function PopNewCard() {
                 <div className="pop-new-card__block">
                     <div className="pop-new-card__content">
                         <h3 className="pop-new-card__ttl">Создание задачи</h3>
-                        <a href="#" className="pop-new-card__close">&#10006;</a>
+                        <a href="#" className="pop-new-card__close" onClick={handleCloseWindow}>&#10006;</a>
                         <div className="pop-new-card__wrap">
                             <form className="pop-new-card__form form-new" id="formNewCard" action="#">
                                 <div className="form-new__block">

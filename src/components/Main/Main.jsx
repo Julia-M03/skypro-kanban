@@ -1,3 +1,4 @@
+import { Outlet } from "react-router-dom";
 import { cardList } from "../../data";
 import { Column } from "../Column/Column";
 import { Container } from "../Header/Header.styled";
