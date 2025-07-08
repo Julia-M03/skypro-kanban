@@ -59,22 +59,13 @@ export const ModalFormLogin = styled.form`
 }
 `;
 
-export const ModalInput = styled.input`
-  width: 100%;
+export const ModalInput = styled.input.attrs((props) => props)`
+  width: 100%;  
   min-width: 100%;
   border-radius: 8px;
-  border: 0.7px solid rgba(148, 166, 190, 0.4);
+  border: 0.7px solid ${(props) => props.$error ? "red" : "rgba(148, 166, 190, 0.4)"};
   outline: none;
   padding: 10px 8px;
-
-  &::-moz-placeholder {
-  font-family: "Roboto", sans-serif;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 21px;
-  letter-spacing: -0.28px;
-  color: #94A6BE;
-}
 
 &::placeholder {
   font-family: "Roboto", sans-serif;
@@ -86,10 +77,10 @@ export const ModalInput = styled.input`
 }
 `;
 
-export const ModalEnter = styled.button`
+export const ModalEnter = styled.button.attrs((props) => props)`
   width: 100%;
   height: 30px;
-  background-color: #565EEF;
+  background-color: ${(props) => props.$error ? " #94A6BE" : " #565EEF"};
   border-radius: 4px;
   margin-top: 20px;
   margin-bottom: 20px;
@@ -108,6 +99,16 @@ export const ModalEnter = styled.button`
   &:hover {
   background-color: #33399b;
 }
+`;
+
+export const ErrorInput = styled.div`
+font-family: Arial;
+font-weight: 400;
+font-size: 12px;
+line-height: 150%;
+text-align: center;
+color: #F84D4D;
+padding-top: 8px;
 `;
 
 export const ModalFormGroup = styled.div`

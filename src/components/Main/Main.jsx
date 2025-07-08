@@ -7,7 +7,7 @@ import { MainBlock, MainContent, SMain } from "./Main.styled";
 
 const statusList = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"]
 
-export function Main({ loading }) {
+export function Main({ loading, words, error }) {
 
     return (
         // {
@@ -20,6 +20,7 @@ export function Main({ loading }) {
                         {cardList.length > 0 &&
                             statusList.map((item) => (
                                 <Column
+                                    words={words}
                                     loading={loading}
                                     title={item}
                                     key={item}
@@ -29,6 +30,7 @@ export function Main({ loading }) {
                         {cardList.length === 0 && <p>Нет задач</p>}
                     </MainContent>
                 </MainBlock>
+                <p>{error}</p>
             </Container>
         </SMain>
     )
