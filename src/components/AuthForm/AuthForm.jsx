@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom";
 import { AWrapper, ErrorInput, ModalBlock, ModalEnter, ModalFormGroup, ModalFormLogin, ModalInput, ModalTtl, SigninContainer, SigninModal } from "./AuthForm.styled";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signIn, signUp } from "../../services/auth";
+import { AuthContext } from "../../context/AuthContext";
 
-const AuthForm = ({ isSignUp, setIsAuth }) => {
+const AuthForm = ({ isSignUp }) => {
     const navigate = useNavigate();
+    const { updateUserInfo } = useContext(AuthContext); 
     // const handleLogin = (e) => {
     //     e.preventDefault();
     //     setIsAuth(true);
@@ -81,8 +83,9 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
                 : await signUp(formData);
 
             if (data) {
-                setIsAuth(true);
-                localStorage.setItem("userInfo", JSON.stringify(data));
+                updateUserInfo(data);
+                // setIsAuth(true);
+                // localStorage.setItem("userInfo", JSON.stringify(data));
                 navigate("/");
             }
         } catch (err) {
