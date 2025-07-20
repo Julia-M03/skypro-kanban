@@ -18,7 +18,7 @@ export async function fetchTasks({ token }) {
 
 export async function getTasks({ token, id }) {
    try {
-      const data = await axios.get(API_URL + id, {
+      const data = await axios.get(API_URL + "/" + id, {
          headers: {
             Authorization: 'Bearer ' + token,
          },
@@ -47,7 +47,7 @@ export async function postTask({ token, task }) {
 // Функция изменения слова:
 export async function editTask({ token, id, task }) {
     try {
-        const data = await axios.patch(API_URL + id, task, {
+        const data = await axios.patch(API_URL + "/" + id, task, {
             headers: {
                 Authorization: 'Bearer ' + token,
             'Content-Type': 'text/html',
@@ -62,7 +62,7 @@ export async function editTask({ token, id, task }) {
 // Удаление задачи
 export async function deleteTask({ token, id }) {
     try {
-        const data = await axios.delete(API_URL + id, {
+        const data = await axios.delete(API_URL + "/" + id, {
             headers: {
                 Authorization: 'Bearer ' + token,
             'Content-Type': 'text',
@@ -73,3 +73,4 @@ export async function deleteTask({ token, id }) {
         throw new Error(error.message);
     }
 }
+

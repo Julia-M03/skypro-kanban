@@ -19,7 +19,7 @@ export const TasksProvider = ({ children }) => {
             if (data) setTasks(data);
          } catch (err) {
             setError(err.message);
-            console.err("Ошибка загрузки слов", err.message);
+            console.err("Ошибка загрузки задач", err.message);
          } finally {
             setLoading(false);
          }
@@ -33,7 +33,7 @@ export const TasksProvider = ({ children }) => {
          const newTasks = await postTask({ token: user?.token, task });
          setTasks(newTasks);
       } catch (error) {
-         console.error("Ошибка добавления слова", error);
+         console.error("Ошибка добавления задачи", error);
       }
    };
 
@@ -43,7 +43,7 @@ export const TasksProvider = ({ children }) => {
          const newTasks = await editTask({ token: user?.token, id, task });
          setTasks(newTasks);
       } catch (error) {
-         console.error("Ошибка редактирования слова", error);
+         console.error("Ошибка редактирования задачи", error);
    }
    };
 
