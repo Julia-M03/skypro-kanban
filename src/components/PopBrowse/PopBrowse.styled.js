@@ -77,7 +77,6 @@ export const PopBrouwseTopBlock = styled.div`
 `;
 
 export const PopBrouwseTitle = styled.h3`
-  color: ${({theme})=> theme.text};
   font-size: 20px;
   font-weight: 600;
   line-height: 24px;
@@ -208,16 +207,17 @@ export const StatusThemeLabel = styled.label`
   display: inline-block;
   height: 30px;
   padding: 5px 14px 5px 14px;
-  border: solid 1px ${({theme})=> theme.text};
+  border: solid 1px #94A6BE;
   border-radius: 24px;
   cursor: pointer;
   margin-right: 2px;
   opacity: 40%;
   background: #FFFFFF;
+  color: #94A6BE;
 
   &:hover {
     opacity: 100%;
-    border: solid 1px ${({theme})=> theme.primary};
+    border: solid 1px;
     color: #FFFFFF;
     background-color: #94A6BE;
   }
@@ -250,18 +250,17 @@ export const FormBrowseBlock = styled.div`
 `;
 
 export const FormBrowseTitle = styled.label`
-  color: ${({theme})=> theme.text};
   font-size: 14px;
   font-weight: 600;
   line-height: 1;
 `;
 
-export const FormBrowseArea = styled.textarea`
+export const FormBrowseArea = styled.textarea.attrs((props) => props)`
   max-width: 370px;
   width: 100%;
   outline: none;
   padding: 14px;
-  background: #eaeef6;
+  background-color: ${(props) => props.$isEditing ? "transparent" : "#eaeef6" } ;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -269,8 +268,6 @@ export const FormBrowseArea = styled.textarea`
   letter-spacing: -0.14px;
   margin-top: 14px;
   height: 200px;
-  color: ${({theme})=> theme.text};
-  background-color: ${({theme})=> theme.body};
   &::-moz-placeholder {
     font-weight: 400;
     font-size: 14px;

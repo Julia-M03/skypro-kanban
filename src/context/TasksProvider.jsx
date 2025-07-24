@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect } from "react";
-import { fetchTasks, postTask, editTask } from "../services/api";
+import { fetchTasks } from "../services/api";
 import { AuthContext } from "./AuthContext";
 import { TasksContext } from "./TasksContext";
 
@@ -28,24 +28,24 @@ export const TasksProvider = ({ children }) => {
    }, [user.token]);
 
 
-   const addNewTask = async ({ task }) => {
-      try {
-         const newTasks = await postTask({ token: user?.token, task });
-         setTasks(newTasks);
-      } catch (error) {
-         console.error("Ошибка добавления задачи", error);
-      }
-   };
+   // const addNewTask = async ({ task }) => {
+   //    try {
+   //       const newTasks = await postTask({ token: user?.token, task });
+   //       setTasks(newTasks);
+   //    } catch (error) {
+   //       console.error("Ошибка добавления задачи", error);
+   //    }
+   // };
 
 
-   const updateTask = async ({ task, id }) => {
-      try {
-         const newTasks = await editTask({ token: user?.token, id, task });
-         setTasks(newTasks);
-      } catch (error) {
-         console.error("Ошибка редактирования задачи", error);
-   }
-   };
+   // const updateTask = async ({ task, id }) => {
+   //    try {
+   //       const newTasks = await editTask({ token: user?.token, id, task });
+   //       setTasks(newTasks);
+   //    } catch (error) {
+   //       console.error("Ошибка редактирования задачи", error);
+   // }
+   // };
 
 
    return (

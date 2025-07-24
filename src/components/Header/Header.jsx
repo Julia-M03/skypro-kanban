@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 
 
 export function Header() {
-
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
+  const user = JSON.parse(localStorage.getItem("userInfo"));
 
   return (
 
@@ -22,11 +22,11 @@ export function Header() {
 
           <HeaderNav>
             <ButtonNewCard onClick={() => navigate("cards/create")}>Создать новую задачу</ButtonNewCard>
-            <HeaderUser as="a" href="#" onClick={() => setIsOpen(!isOpen)} >Ivan Ivanov</HeaderUser>
+            <HeaderUser as="a" href="#" onClick={() => setIsOpen(!isOpen)}>{user.name}</HeaderUser>
             {
               isOpen ? <HeaderSet id="user-set-target">
-                <SetName>Ivan Ivanov</SetName>
-                <SetMail>ivan.ivanov@gmail.com</SetMail>
+                <SetName>{user.name}</SetName>
+                <SetMail>{user.login}</SetMail>
                 <SetTheme>
                   <p>Темная тема</p>
                   <input type="checkbox" className="checkbox" name="checkbox"></input>

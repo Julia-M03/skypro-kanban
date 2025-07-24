@@ -4,7 +4,8 @@ import { ButtonChengeDelete, ButtonClose, ButtonGroup, CategoriesTheme, Categori
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { TasksContext } from "../../context/TasksContext";
 import { AuthContext } from "../../context/AuthContext";
-import { deleteTask, editTask } from "../../services/api";
+import { deleteTask } from "../../services/api";
+
 
 export function PopBrowse() {
   const { id } = useParams();
@@ -13,53 +14,48 @@ export function PopBrowse() {
   const [isEditing, setIsEditing] = useState(false);
   const navigate = useNavigate();
 
-  const [editableTask, setEditableTask] = useState({
-    name: "",
-    translation: "",
-  });
-
   const task = useMemo(
-    () => tasks.find((task) => task._id === id) || { name: "", translation: "" },
+    () => tasks.find((task) => task._id === id),
     [id, tasks]
   );
 
-  const [selectedDate] = useState(task?.date);
+  // const [selectedDate] = useState(task?.date);
 
-  const [editCard, setEditCard] = useState({
-    title: task?.title,
-    description: task?.description,
-    topic: task?.topic,
-    status: task?.status,
-    date: task?.date,
-  });
+  const [card, setCard] = useState();
+  const [editCard, setEditCard] = useState();
 
   useEffect(() => {
     if (task) {
-      setEditableTask({
-        name: task.name,
-        translation: task.translation,
-      });
+      const date = new Date(task.date)
+
+      setCard({ ...task, realDate: date })
+      setEditCard({ ...task, realDate: date })
     }
   }, [task]);
 
+  function handleCancel(e) {
+    e.preventDefault();
+    setEditCard({ ...card })
+    setIsEditing(false);
+  }
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    const taskData = {
-      ...editCard,
-      date: selectedDate,
-    };
-    console.log(taskData);
-    editTask({ token: user.token, id: id, taskData: taskData })
-      .then((newCard) => {
-        console.log(newCard)
-        setTasks(newCard.tasks);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-        alert(error);
-      });
+    setCard({ ...editCard })
+    // const taskData = {
+    //   ...editCard,
+    //   date: selectedDate,
+    // };
+    // editTask({ token: user.token, id: id, taskData: taskData })
+    //   .then((tasks) => {
+    //     setTasks(tasks);
+    //     navigate("/");
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     alert(error);
+    //   });
+    setIsEditing(false);
   };
 
   const onChangeInput = (e) => {
@@ -72,6 +68,10 @@ export function PopBrowse() {
 
   if (!task) {
     return <Navigate to={"/"} />;
+  }
+
+  if (!editCard) {
+    return null
   }
 
   const handlerDeleteTask = () => {
@@ -112,20 +112,32 @@ export function PopBrowse() {
     }
   };
 
+  function onChangeDate(date) {
+    setEditCard({
+      ...editCard,
+      date: date.toLocaleString('ru-RU'),
+      realDate: date,
+    });
+    // console.log(date)
+    // console.log(date.toLocaleString('ru-RU'))
+  }
+
   return (
     <PopBrouwse>
       <PopBrouwseContainer>
         <PopBrouwseBlock>
           <PopBrouwseContent>
             <PopBrouwseTopBlock>
-              <PopBrouwseTitle>{task.title}</PopBrouwseTitle>
-              <CategoriesTheme $color={color(task.topic)} $active={true}>
-                <CategoriesThemeText $color={color(task.topic)}>{task.topic}</CategoriesThemeText>
-              </CategoriesTheme>
+              {isEditing && <PopBrouwseTitle>Редактирование задачи</PopBrouwseTitle>}
+              {!isEditing && <PopBrouwseTitle>{card.title}</PopBrouwseTitle>}
+
+              {!isEditing && (<CategoriesTheme $color={color(card.topic)} $active={true}>
+                <CategoriesThemeText $color={color(card.topic)}>{card.topic}</CategoriesThemeText>
+              </CategoriesTheme>)}
             </PopBrouwseTopBlock>
             <PopBrowseStatus>
               <StatusPsubTtlP>Статус</StatusPsubTtlP>
-              {!isEditing && <StatusThemeLabel_1>{editCard.status}</StatusThemeLabel_1>}
+              {!isEditing && <StatusThemeLabel_1>{card.status}</StatusThemeLabel_1>}
               {isEditing && (
                 <StatusThemesDiv>
                   <OpenedCardTheme
@@ -180,40 +192,60 @@ export function PopBrowse() {
                 </StatusThemesDiv>
               )}
             </PopBrowseStatus>
+
             <PopBrouwseWrap>
               <PopBrowseForm id="formBrowseCard" action="#">
+
+                {isEditing && (
+                  <FormBrowseBlock>
+                    <FormBrowseTitle htmlFor="formTitle">Название задачи</FormBrowseTitle>
+                    <input
+                      onChange={onChangeInput}
+                      className="form-new__input"
+                      type="text"
+                      name="title"
+                      id="formTitle"
+                      placeholder="Введите название задачи..."
+                      value={editCard.title}
+                      autoFocus
+                    />
+                  </FormBrowseBlock>
+                )}
+
                 <FormBrowseBlock>
                   <FormBrowseTitle htmlFor="textArea01">
                     Описание задачи
                   </FormBrowseTitle>
-                  {!isEditing && (
-                    <FormBrowseArea
-                      onChange={onChangeInput}
-                      name="description"
-                      id="textArea01"
-                      readOnly=""
-                      placeholder="Введите описание задачи..."
-                      defaultValue={task.description}
-                      disabled={true}
-                    />
-                  )}
-                  {isEditing && (
-                    <FormBrowseArea
-                      onChange={onChangeInput}
-                      name="description"
-                      id="textArea01"
-                      readOnly=""
-                      placeholder="Введите описание задачи..."
-                      defaultValue={task.description}
-                      disabled={false}
-                    />
-                  )}
+                  <FormBrowseArea
+                    onChange={onChangeInput}
+                    name="description"
+                    placeholder="Введите описание задачи..."
+                    disabled={!isEditing}
+                    $isEditing={isEditing}
+                    value={editCard.description}
+                  />
                 </FormBrowseBlock>
               </PopBrowseForm>
 
-              <Calendar />
+              <Calendar date={editCard.realDate} setDate={onChangeDate} readOnly={!isEditing} />
 
             </PopBrouwseWrap>
+
+            {/* {isEditing && (<div className="pop-new-card__categories categories">
+              <p className="categories__p subttl">Категория</p>
+              <div className="categories__themes">
+                <div className={"categories__theme _orange " + (editCard.topic === "Web Design" ? "_active-category" : "")}>
+                  <p className="_orange">Web Design</p>
+                </div>
+                <div className={"categories__theme _green " + (editCard.topic === "Research" ? "_active-category" : "")}>
+                  <p className="_green">Research</p>
+                </div>
+                <div className={"categories__theme _purple " + (editCard.topic === "Copywriting" ? "_active-category" : "")}>
+                  <p className="_purple">Copywriting</p>
+                </div>
+              </div>
+            </div>)} */}
+
             {!isEditing && (<PopBrowseButtonBrowse>
               <ButtonGroup>
                 <ButtonChengeDelete onClick={() => { setIsEditing(!isEditing); }}>Редактировать задачу</ButtonChengeDelete>
@@ -228,13 +260,12 @@ export function PopBrowse() {
               <ButtonGroup>
                 <ButtonChengeDelete onClick={handleFormSubmit}>Сохранить</ButtonChengeDelete>
 
-                <ButtonChengeDelete onClick={() => { setIsEditing(!isEditing); }}>Отменить</ButtonChengeDelete>
+                <ButtonChengeDelete onClick={handleCancel}>Отменить</ButtonChengeDelete>
 
                 <ButtonChengeDelete onClick={handlerDeleteTask} >Удалить задачу</ButtonChengeDelete>
               </ButtonGroup>
 
               <ButtonClose onClick={handleCloseWindow}>Закрыть</ButtonClose>
-
             </PopBrowseButtonBrowse>)}
           </PopBrouwseContent>
         </PopBrouwseBlock>

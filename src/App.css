@@ -1138,3 +1138,59 @@ body {
     display: block;
   }
 }
+
+.Mui-selected {
+    color: #fff !important;
+    background-color: #94A6BE !important;
+    font-weight: 500 !important;
+}
+
+.MuiDayCalendar-weekDayLabel,
+.MuiPickersDay-dayWithMargin {
+  /* text-transform: capitalize; */
+  font-size: 10px !important; 
+  height: 22px !important;
+  width: 22px !important;
+  margin-block: 1px !important;
+
+  &:not(.Mui-selected) {
+    color: #94A6BE !important;
+  }
+}
+
+.MuiPickersCalendarHeader-label {
+  text-transform: capitalize;
+  color: #94A6BE !important;
+  font-size: 14px !important;
+}
+
+.MuiPickersArrowSwitcher-button {
+  padding: 0 !important;
+  color: #94A6BE !important;
+  height: 6px !important;
+}
+
+.MuiDateCalendar-root {
+  width: auto !important;
+}
+
+.MuiPickersCalendarHeader-root {
+  padding-left: 8px !important;
+  padding-right: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  justify-content: space-between !important;
+  min-height: 0 !important;
+}
+
+.MuiDayCalendar-monthContainer {
+  position: static !important;
+}
+
+.MuiDateCalendar-root,
+.MuiPickersSlideTransition-root,
+.MuiDayCalendar-slideTransition {
+  min-height: auto !important;
+  height: auto !important;
+  max-height: auto !important;
+}
