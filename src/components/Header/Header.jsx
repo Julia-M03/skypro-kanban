@@ -16,10 +16,6 @@ export function Header() {
 
           <Logo><a href="" target="_self"><img src="images/logo.png" alt="logo"></img></a></Logo>
 
-          <div className="header__logo _dark">
-            <a href="" target="_self"><img src="images/logo_dark.png" alt="logo"></img></a>
-          </div>
-
           <HeaderNav>
             <ButtonNewCard onClick={() => navigate("cards/create")}>Создать новую задачу</ButtonNewCard>
             <HeaderUser as="a" href="#" onClick={() => setIsOpen(!isOpen)}>{user.name}</HeaderUser>

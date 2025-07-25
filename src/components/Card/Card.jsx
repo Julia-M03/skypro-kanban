@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CardContent, CardDate, CardGroup, CardNumber, CardPoint, CardPoints, CardsCard, CardsItem, CardTitle } from "./Card.styled";
 import { Link } from "react-router-dom";
+import { formatDate } from "date-fns";
 
   
  const CardTopic = styled.div`
@@ -58,7 +59,7 @@ export function Card({ card }) {
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <CardNumber>{card.date}</CardNumber>
+                                <CardNumber>{formatDate(new Date(card.date), "dd.MM.yyyy")}</CardNumber>
                             </CardDate>
                         </CardContent>
                     </CardsCard>

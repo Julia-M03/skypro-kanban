@@ -1,17 +1,16 @@
-// import { Outlet } from "react-router-dom";
+import { useContext } from "react";
 import { Column } from "../Column/Column";
 import { Container } from "../Header/Header.styled";
 import { MainBlock, MainContent, SMain } from "./Main.styled";
+import { TasksContext } from "../../context/TasksContext";
 
 
 const statusList = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"]
 
-export function Main({ tasks, error }) {
+export function Main() {
+    const { tasks, error } = useContext(TasksContext)
 
     return (
-        // {
-        //     loading ? <Loader /> : ""
-        // }
         <SMain>
             <Container>
                 <MainBlock>
@@ -20,7 +19,6 @@ export function Main({ tasks, error }) {
                             statusList.map((item) => (
                                 <Column
                                     tasks={tasks}
-                                    // loading={loading}
                                     title={item}
                                     key={item}
                                     cards={tasks.filter((card) => card.status === item)}

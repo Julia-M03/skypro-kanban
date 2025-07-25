@@ -7,11 +7,7 @@ import { AuthContext } from "../../context/AuthContext";
 const AuthForm = ({ isSignUp }) => {
     const navigate = useNavigate();
     const { updateUserInfo } = useContext(AuthContext); 
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     setIsAuth(true);
-    //     navigate("/");
-    // }
+
     // состояние полей
     const [formData, setFormData] = useState({
         name: "",
@@ -56,8 +52,7 @@ const AuthForm = ({ isSignUp }) => {
         return isValid;
     };
 
-    // функция, которая отслеживает в полях изменения 
-    // и меняет состояние компонента
+    // функция, которая отслеживает в полях изменения и меняет состояние компонента
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -72,20 +67,15 @@ const AuthForm = ({ isSignUp }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            // если у нас форма не прошла валидацию, то дальше не продолжаем
             return;
         }
         try {
-            // чтобы не писать две разных функции, выберем нужный запрос через 
-            // тернарный оператор
             const data = !isSignUp
                 ? await signIn({ login: formData.login, password: formData.password })
                 : await signUp(formData);
 
             if (data) {
                 updateUserInfo(data);
-                // setIsAuth(true);
-                // localStorage.setItem("userInfo", JSON.stringify(data));
                 navigate("/");
             }
         } catch (err) {

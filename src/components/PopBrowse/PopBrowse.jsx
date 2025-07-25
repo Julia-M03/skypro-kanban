@@ -4,7 +4,7 @@ import { ButtonChengeDelete, ButtonClose, ButtonGroup, CategoriesTheme, Categori
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { TasksContext } from "../../context/TasksContext";
 import { AuthContext } from "../../context/AuthContext";
-import { deleteTask } from "../../services/api";
+import { deleteTask, editTask } from "../../services/api";
 
 
 export function PopBrowse() {
@@ -18,8 +18,6 @@ export function PopBrowse() {
     () => tasks.find((task) => task._id === id),
     [id, tasks]
   );
-
-  // const [selectedDate] = useState(task?.date);
 
   const [card, setCard] = useState();
   const [editCard, setEditCard] = useState();
@@ -41,21 +39,19 @@ export function PopBrowse() {
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
+
     setCard({ ...editCard })
-    // const taskData = {
-    //   ...editCard,
-    //   date: selectedDate,
-    // };
-    // editTask({ token: user.token, id: id, taskData: taskData })
-    //   .then((tasks) => {
-    //     setTasks(tasks);
-    //     navigate("/");
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //     alert(error);
-    //   });
-    setIsEditing(false);
+
+    editTask(user.token, id, editCard)
+      .then((tasks) => {
+        setIsEditing(false);
+        setTasks(tasks);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log(error);
+        alert(error);
+      });
   };
 
   const onChangeInput = (e) => {
@@ -75,7 +71,7 @@ export function PopBrowse() {
   }
 
   const handlerDeleteTask = () => {
-    deleteTask({ token: user.token, id: id })
+    deleteTask(user.token, id)
       .then((tasks) => {
         setTasks(tasks);
         navigate("/");
@@ -115,11 +111,9 @@ export function PopBrowse() {
   function onChangeDate(date) {
     setEditCard({
       ...editCard,
-      date: date.toLocaleString('ru-RU'),
+      date: date.toISOString(),
       realDate: date,
     });
-    // console.log(date)
-    // console.log(date.toLocaleString('ru-RU'))
   }
 
   return (
@@ -148,7 +142,7 @@ export function PopBrowse() {
                     value="Без статуса"
                     onChange={onChangeInput}
                   />
-                  <StatusThemeLabel >Без статуса</StatusThemeLabel>
+                  <StatusThemeLabel htmlFor="radio1" $isActive={editCard.status === "Без статуса"}>Без статуса</StatusThemeLabel>
 
                   <OpenedCardTheme
                     type="radio"
@@ -158,7 +152,7 @@ export function PopBrowse() {
                     value="Нужно сделать"
                     onChange={onChangeInput}
                   />
-                  <StatusThemeLabel htmlFor="radio2">Нужно сделать</StatusThemeLabel>
+                  <StatusThemeLabel htmlFor="radio2" $isActive={editCard.status === "Нужно сделать"}>Нужно сделать</StatusThemeLabel>
 
                   <OpenedCardTheme
                     type="radio"
@@ -168,7 +162,7 @@ export function PopBrowse() {
                     value="В работе"
                     onChange={onChangeInput}
                   />
-                  <StatusThemeLabel htmlFor="radio3">В работе</StatusThemeLabel>
+                  <StatusThemeLabel htmlFor="radio3" $isActive={editCard.status === "В работе"}>В работе</StatusThemeLabel>
 
                   <OpenedCardTheme
                     type="radio"
@@ -178,7 +172,7 @@ export function PopBrowse() {
                     value="Тестирование"
                     onChange={onChangeInput}
                   />
-                  <StatusThemeLabel htmlFor="radio4">Тестирование</StatusThemeLabel>
+                  <StatusThemeLabel htmlFor="radio4" $isActive={editCard.status === "Тестирование"}>Тестирование</StatusThemeLabel>
 
                   <OpenedCardTheme
                     type="radio"
@@ -188,7 +182,7 @@ export function PopBrowse() {
                     value="Готово"
                     onChange={onChangeInput}
                   />
-                  <StatusThemeLabel htmlFor="radio5">Готово</StatusThemeLabel>
+                  <StatusThemeLabel htmlFor="radio5" $isActive={editCard.status === "Готово"}>Готово</StatusThemeLabel>
                 </StatusThemesDiv>
               )}
             </PopBrowseStatus>
@@ -231,20 +225,6 @@ export function PopBrowse() {
 
             </PopBrouwseWrap>
 
-            {/* {isEditing && (<div className="pop-new-card__categories categories">
-              <p className="categories__p subttl">Категория</p>
-              <div className="categories__themes">
-                <div className={"categories__theme _orange " + (editCard.topic === "Web Design" ? "_active-category" : "")}>
-                  <p className="_orange">Web Design</p>
-                </div>
-                <div className={"categories__theme _green " + (editCard.topic === "Research" ? "_active-category" : "")}>
-                  <p className="_green">Research</p>
-                </div>
-                <div className={"categories__theme _purple " + (editCard.topic === "Copywriting" ? "_active-category" : "")}>
-                  <p className="_purple">Copywriting</p>
-                </div>
-              </div>
-            </div>)} */}
 
             {!isEditing && (<PopBrowseButtonBrowse>
               <ButtonGroup>

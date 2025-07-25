@@ -7,7 +7,7 @@ export const PopBrouwse = styled.div`
   height: 100%;
   min-width: 375px;
   min-height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   z-index: 7;
@@ -197,13 +197,9 @@ export const StatusThemesDiv = styled.div`
 
 export const OpenedCardTheme = styled.input`
   display: none;
-
-&:checked + label {
-  opacity: 100%;
-}
 `;
 
-export const StatusThemeLabel = styled.label`
+export const StatusThemeLabel = styled.label.attrs((props) => props)`
   display: inline-block;
   height: 30px;
   padding: 5px 14px 5px 14px;
@@ -211,15 +207,13 @@ export const StatusThemeLabel = styled.label`
   border-radius: 24px;
   cursor: pointer;
   margin-right: 2px;
-  opacity: 40%;
-  background: #FFFFFF;
-  color: #94A6BE;
+  color: ${(props) => props.$isActive ? "#FFFFFF" : "#94A6BE" } ;
+  background-color: ${(props) => props.$isActive ? "#94A6BE" : "#FFFFFF" } ;
 
   &:hover {
     opacity: 100%;
     border: solid 1px;
-    color: #FFFFFF;
-    background-color: #94A6BE;
+    box-shadow: inset 0 0 4px ${(props) => props.$isActive ? "4px #88a5cb" : "2px #b9cce6"};
   }
   white-space: nowrap;
 `;

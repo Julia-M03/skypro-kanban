@@ -2,7 +2,7 @@ import axios from 'axios'
 
 const API_URL = 'https://wedev-api.sky.pro/api/kanban'
 
-export async function fetchTasks({ token }) {
+export async function fetchTasks(token) {
    try {
       const data = await axios.get(API_URL, {
          headers: {
@@ -10,13 +10,12 @@ export async function fetchTasks({ token }) {
          },
       })
       return data.data.tasks;
-      // когда работаем с axios, не забываем, что результат лежит в ключе datа
    } catch (error) {
       throw new Error(error.message);
    }
 }
 
-export async function getTasks({ token, id }) {
+export async function getTasks(token, id) {
    try {
       const data = await axios.get(API_URL + "/" + id, {
          headers: {
@@ -29,8 +28,8 @@ export async function getTasks({ token, id }) {
    }
 }
 
-// Функция добавления нового слова:
-export async function postTask({ token, task }) {
+// добавление новой задачи:
+export async function postTask(token, task) {
    try {
       const data = await axios.post(API_URL, task, {
          headers: {
@@ -44,10 +43,10 @@ export async function postTask({ token, task }) {
    }
 }
 
-// Функция изменения слова:
-export async function editTask({ token, id, task }) {
+// изменение задачи:
+export async function editTask(token, id, task) {
     try {
-        const data = await axios.patch(API_URL + "/" + id, task, {
+        const data = await axios.put(API_URL + "/" + id, task, {
             headers: {
                 Authorization: 'Bearer ' + token,
             'Content-Type': 'text/html',
@@ -60,7 +59,7 @@ export async function editTask({ token, id, task }) {
 }
 
 // Удаление задачи
-export async function deleteTask({ token, id }) {
+export async function deleteTask(token, id) {
     try {
         const data = await axios.delete(API_URL + "/" + id, {
             headers: {

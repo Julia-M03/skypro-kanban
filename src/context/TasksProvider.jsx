@@ -4,53 +4,38 @@ import { AuthContext } from "./AuthContext";
 import { TasksContext } from "./TasksContext";
 
 
-export const TasksProvider = ({ children }) => {
+const TasksProvider = ({ children }) => {
    const [tasks, setTasks] = useState([]);
-   const [loading, setLoading] = useState(false);
+   const [hasGot, setHasGot] = useState(false);
    const [error, setError] = useState("");
    const { user } = useContext(AuthContext);
 
 
    useEffect(() => {
       const loadTasks = async () => {
-        setLoading(true);
+         setHasGot(false);
          try {
-            const data = await fetchTasks({ token: user.token });
+            const data = await fetchTasks(user.token);
             if (data) setTasks(data);
          } catch (err) {
             setError(err.message);
             console.err("Ошибка загрузки задач", err.message);
          } finally {
-            setLoading(false);
+            setHasGot(true);
          }
       };
       loadTasks();
    }, [user.token]);
 
 
-   // const addNewTask = async ({ task }) => {
-   //    try {
-   //       const newTasks = await postTask({ token: user?.token, task });
-   //       setTasks(newTasks);
-   //    } catch (error) {
-   //       console.error("Ошибка добавления задачи", error);
-   //    }
-   // };
-
-
-   // const updateTask = async ({ task, id }) => {
-   //    try {
-   //       const newTasks = await editTask({ token: user?.token, id, task });
-   //       setTasks(newTasks);
-   //    } catch (error) {
-   //       console.error("Ошибка редактирования задачи", error);
-   // }
-   // };
+  
 
 
    return (
-      <TasksContext.Provider value={{ tasks, setTasks, loading, error }}>
+      <TasksContext.Provider value={{ tasks, setTasks, hasGot, error }}>
          {children}
       </TasksContext.Provider>
    );
 };
+
+export default TasksProvider;

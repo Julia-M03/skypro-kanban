@@ -16,11 +16,17 @@ export function Calendar({date, setDate, readOnly}) {
         </LocalizationProvider>
 
         <CalendarPeriod>
-          Срок исполнения: <span className="date-control">{formatDate(date, "dd.MM.yyyy", { locale: ru })}</span>.
+          {
+            date
+            ? (
+              <>
+                Срок исполнения: <span className="date-control">{formatDate(date, "dd.MM.yyyy", { locale: ru })}</span>.
+              </>
+            )
+            : "Выберите срок исполнения..."
+          }
         </CalendarPeriod>
       </CalendarBlock>
     </SCalendar>
   )
 }
-
-{/* <p className="calendar__p date-end">Выберите срок исполнения <span className="date-control"></span>.</p> */ }
