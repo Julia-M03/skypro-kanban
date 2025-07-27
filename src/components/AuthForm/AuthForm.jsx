@@ -1,15 +1,13 @@
 import { Link, useNavigate } from "react-router-dom";
 import { AWrapper, ErrorInput, ModalBlock, ModalEnter, ModalFormGroup, ModalFormLogin, ModalInput, ModalTtl, SigninContainer, SigninModal } from "./AuthForm.styled";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { signIn, signUp } from "../../services/auth";
+import { AuthContext } from "../../context/AuthContext";
 
-const AuthForm = ({ isSignUp, setIsAuth }) => {
+const AuthForm = ({ isSignUp }) => {
     const navigate = useNavigate();
-    // const handleLogin = (e) => {
-    //     e.preventDefault();
-    //     setIsAuth(true);
-    //     navigate("/");
-    // }
+    const { updateUserInfo } = useContext(AuthContext); 
+
     // состояние полей
     const [formData, setFormData] = useState({
         name: "",
@@ -54,8 +52,7 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
         return isValid;
     };
 
-    // функция, которая отслеживает в полях изменения 
-    // и меняет состояние компонента
+    // функция, которая отслеживает в полях изменения и меняет состояние компонента
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -70,19 +67,15 @@ const AuthForm = ({ isSignUp, setIsAuth }) => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!validateForm()) {
-            // если у нас форма не прошла валидацию, то дальше не продолжаем
             return;
         }
         try {
-            // чтобы не писать две разных функции, выберем нужный запрос через 
-            // тернарный оператор
             const data = !isSignUp
                 ? await signIn({ login: formData.login, password: formData.password })
                 : await signUp(formData);
 
             if (data) {
-                setIsAuth(true);
-                localStorage.setItem("userInfo", JSON.stringify(data));
+                updateUserInfo(data);
                 navigate("/");
             }
         } catch (err) {

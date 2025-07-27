@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { ExitBlock, ExitContainer, ExitFormGroup, ExitNo, ExitTtl, ExitYes } from "./PopUser.styled";
+import { ExitBlock, ExitContainer, ExitFormGroup, ExitNo, ExitTtl, ExitYes } from "./PopExit.styled";
 
-export function PopUser({ setIsAuth }) {
+export function PopExit({ setIsAuth }) {
 const navigate = useNavigate();
 
 function handleLogout(e) {

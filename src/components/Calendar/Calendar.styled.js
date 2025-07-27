@@ -81,20 +81,17 @@ export const CalendarDays = styled.div`
 `;
 
 export const CalendarPeriod = styled.div`
-   padding: 0 7px;
-   @media screen and (max-width: 660px) {
-    padding: 0;
-   }
-`;
-
-export const CalendarTerm = styled.p`
+  padding: 8px 7px;
   color: #94A6BE;
   font-size: 10px;
   line-height: 1;
+
   span {
-  color: #000000;
+    color: #000000;
   }
-  @media screen and (max-width: 660px) {
-  font-size: 14px;
- }
+
+   @media screen and (max-width: 660px) {
+    font-size: 14px;
+    padding: 0;
+   }
 `;

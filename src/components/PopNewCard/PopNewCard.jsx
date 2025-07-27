@@ -30,8 +30,7 @@ export function PopNewCard() {
                                 </div>
                             </form>
                             
-                            <Calendar/>
-
+                            <Calendar date={undefined} setDate={() => {}} readOnly={false} />
                         </div>
                         <div className="pop-new-card__categories categories">
                             <p className="categories__p subttl">Категория</p>
@@ -54,3 +53,4 @@ export function PopNewCard() {
         </div>
     )
 }
+

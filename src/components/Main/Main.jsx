@@ -1,33 +1,30 @@
-import { Outlet } from "react-router-dom";
-import { cardList } from "../../data";
+import { useContext } from "react";
 import { Column } from "../Column/Column";
 import { Container } from "../Header/Header.styled";
 import { MainBlock, MainContent, SMain } from "./Main.styled";
+import { TasksContext } from "../../context/TasksContext";
 
 
 const statusList = ["Без статуса", "Нужно сделать", "В работе", "Тестирование", "Готово"]
 
-export function Main({ loading, words, error }) {
+export function Main() {
+    const { tasks, error } = useContext(TasksContext)
 
     return (
-        // {
-        //     loading ? <Loader /> : ""
-        // }
         <SMain>
             <Container>
                 <MainBlock>
                     <MainContent>
-                        {cardList.length > 0 &&
+                        {tasks.length > 0 &&
                             statusList.map((item) => (
                                 <Column
-                                    words={words}
-                                    loading={loading}
+                                    tasks={tasks}
                                     title={item}
                                     key={item}
-                                    cards={cardList.filter((card) => card.status === item)}
+                                    cards={tasks.filter((card) => card.status === item)}
                                 />
                             ))}
-                        {cardList.length === 0 && <p>Нет задач</p>}
+                        {tasks.length === 0 && <p>Нет задач</p>}
                     </MainContent>
                 </MainBlock>
                 <p>{error}</p>

@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { CardContent, CardDate, CardGroup, CardNumber, CardPoint, CardPoints, CardsCard, CardsItem, CardTitle } from "./Card.styled";
 import { Link } from "react-router-dom";
+import { formatDate } from "date-fns";
 
   
  const CardTopic = styled.div`
@@ -31,20 +32,19 @@ export function Card({ card }) {
     else if (card.topic === "Research") topicClass = "Green";
     else if (card.topic === "Copywriting") topicClass = "Purple";
 
-
     return (
         <CardsItem>
                     <CardsCard>
                         <CardGroup>
                             <CardTopic $colors={topicClass}><p>{card.topic}</p></CardTopic>
-                            <Link to={`/cards/${card.id}`} >
+                            <Link to={`/cards/${card._id}`} >
                                 <CardPoints>
                                     <CardPoint/><CardPoint/><CardPoint/>
                                 </CardPoints>
                             </Link>
                         </CardGroup>
                         <CardContent>
-                            <Link to={`/cards/${card.id}`}>
+                            <Link to={`/cards/${card._id}`}>
                                 <CardTitle>{card.title}</CardTitle>
                             </Link>
                             <CardDate>
@@ -59,7 +59,7 @@ export function Card({ card }) {
                                         </clipPath>
                                     </defs>
                                 </svg>
-                                <CardNumber>{card.date}</CardNumber>
+                                <CardNumber>{formatDate(new Date(card.date), "dd.MM.yyyy")}</CardNumber>
                             </CardDate>
                         </CardContent>
                     </CardsCard>
