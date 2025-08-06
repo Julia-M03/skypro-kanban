@@ -5,6 +5,7 @@ import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { TasksContext } from "../../context/TasksContext";
 import { AuthContext } from "../../context/AuthContext";
 import { deleteTask, editTask } from "../../services/api";
+import { FormNewInput } from "../PopNewCard/PopNewCard.styled";
 
 
 export function PopBrowse() {
@@ -193,9 +194,8 @@ export function PopBrowse() {
                 {isEditing && (
                   <FormBrowseBlock>
                     <FormBrowseTitle htmlFor="formTitle">Название задачи</FormBrowseTitle>
-                    <input
+                    <FormNewInput
                       onChange={onChangeInput}
-                      className="form-new__input"
                       type="text"
                       name="title"
                       id="formTitle"

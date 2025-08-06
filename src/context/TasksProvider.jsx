@@ -27,10 +27,6 @@ const TasksProvider = ({ children }) => {
       loadTasks();
    }, [user.token]);
 
-
-  
-
-
    return (
       <TasksContext.Provider value={{ tasks, setTasks, hasGot, error }}>
          {children}

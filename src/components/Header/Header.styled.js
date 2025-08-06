@@ -164,6 +164,9 @@ export const SetTheme = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-bottom: 30px;
+  opacity: 0;
+  cursor: default;
+  
   p {
   color: #000;
   font-size: 14px;

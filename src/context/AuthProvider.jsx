@@ -4,17 +4,17 @@ import { checkLs } from "../utils/checkLs";
 
 
 const AuthProvider = ({ children }) => {
-   const [user, setUser] = useState(checkLs()); 
+   const [user, setUser] = useState(checkLs());
 
    useEffect(() => {
-   try {
-      const storedUser = localStorage.getItem("userInfo");
-      if (storedUser) {
-         setUser(JSON.parse(storedUser));
+      try {
+         const storedUser = localStorage.getItem("userInfo");
+         if (storedUser) {
+            setUser(JSON.parse(storedUser));
+         }
+      } catch (error) {
+         console.error("Ошибка при загрузке данных из localStorage:", error);
       }
-   } catch (error) {
-      console.error("Ошибка при загрузке данных из localStorage:", error);
-   }
    }, []);
 
    // Обновляем данные о пользователе и сохраняем в лс
@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
       updateUserInfo(null);
       return true;
    };
-   
+
    return (
       <AuthContext.Provider value={{ user, login, logout, updateUserInfo }}>
          {children}

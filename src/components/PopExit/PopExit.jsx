@@ -2,13 +2,13 @@ import { useNavigate } from "react-router-dom";
 import { ExitBlock, ExitContainer, ExitFormGroup, ExitNo, ExitTtl, ExitYes } from "./PopExit.styled";
 
 export function PopExit({ setIsAuth }) {
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
-function handleLogout(e) {
-      e.preventDefault();
-      setIsAuth(false);
-      navigate("/sign-in");
-   }
+  function handleLogout(e) {
+    e.preventDefault();
+    setIsAuth(false);
+    navigate("/sign-in");
+  }
 
   return (
     <div className="pop-exit" id="popExit">
