@@ -207,8 +207,8 @@ export const StatusThemeLabel = styled.label.attrs((props) => props)`
   border-radius: 24px;
   cursor: pointer;
   margin-right: 2px;
-  color: ${(props) => props.$isActive ? "#FFFFFF" : "#94A6BE" } ;
-  background-color: ${(props) => props.$isActive ? "#94A6BE" : "#FFFFFF" } ;
+  color: ${(props) => props.$isActive ? "#FFFFFF" : "#94A6BE"} ;
+  background-color: ${(props) => props.$isActive ? "#94A6BE" : "#FFFFFF"} ;
 
   &:hover {
     opacity: 100%;
@@ -254,7 +254,7 @@ export const FormBrowseArea = styled.textarea.attrs((props) => props)`
   width: 100%;
   outline: none;
   padding: 14px;
-  background-color: ${(props) => props.$isEditing ? "transparent" : "#eaeef6" } ;
+  background-color: ${(props) => props.$isEditing ? "transparent" : "#eaeef6"} ;
   border: 0.7px solid rgba(148, 166, 190, 0.4);
   border-radius: 8px;
   font-size: 14px;
@@ -329,6 +329,10 @@ export const ButtonChengeDelete = styled.button`
 
 
 export const ButtonClose = styled.button`
+  height: 30px;
+  margin-bottom: 10px;
+  padding: 0 14px;
+  margin-right: 8px;
   border-radius: 4px;
   background: #565eef;
   border: none;

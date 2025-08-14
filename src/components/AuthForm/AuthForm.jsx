@@ -75,7 +75,7 @@ const AuthForm = ({ isSignUp }) => {
                 : await signUp(formData);
 
             if (data) {
-                updateUserInfo(data);
+                updateUserInfo({...data, isAuth: true});
                 navigate("/");
             }
         } catch (err) {

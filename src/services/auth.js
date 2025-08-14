@@ -21,14 +21,14 @@ export async function signUp({ name, login, password }) {
          API_URL,
          { login, name, password },
          {
-         headers: {
-            "Content-Type": "",
-         },
-      }
-   );
-   return data.data.user;
+            headers: {
+               "Content-Type": "",
+            },
+         }
+      );
+      return data.data.user;
    } catch (error) {
       console.log(error);
       throw new Error(error.response.data.error);
-  }
+   }
 }

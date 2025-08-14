@@ -14,7 +14,7 @@ export function Header() {
       <Container>
         <HeaderBlock>
 
-          <Logo><a href="" target="_self"><img src="images/logo.png" alt="logo"></img></a></Logo>
+          <Logo><a href="" target="_self"><img src="/images/logo.png" alt="logo"></img></a></Logo>
 
           <HeaderNav>
             <ButtonNewCard onClick={() => navigate("cards/create")}>Создать новую задачу</ButtonNewCard>
