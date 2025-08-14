@@ -1,13 +1,17 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { ExitBlock, ExitContainer, ExitFormGroup, ExitNo, ExitTtl, ExitYes } from "./PopExit.styled";
+import { AuthContext } from "../../context/AuthContext";
 
-export function PopExit({ setIsAuth }) {
+export function PopExit() {
   const navigate = useNavigate();
+  const { updateUserInfo, setIsAuth } = useContext(AuthContext); 
 
   function handleLogout(e) {
     e.preventDefault();
     setIsAuth(false);
     navigate("/sign-in");
+    updateUserInfo(null)
   }
 
   return (

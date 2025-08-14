@@ -10,7 +10,6 @@ import EdCardPage from "../pages/EdCardPage";
 import PrivateRoute from "./PrivateRoute";
 
 function AppRoutes() {
-   const [isAuth, setIsAuth] = useState(false);
    const [loading, setLoading] = useState(true);
 
    useEffect(() => {
@@ -22,20 +21,20 @@ function AppRoutes() {
    return (
       <Routes>
          {/* Главная страница */}
-         <Route element={<PrivateRoute isAuth={isAuth} />}>
+         <Route element={<PrivateRoute />}>
             <Route path="/" element={<MainPage loading={loading} />}>
                <Route path="cards" element={<Outlet />}>
                   <Route path=":id" element={<EdCardPage />} />
                   <Route path="create" element={<AddNewCardPage />} />
                </Route>
-               <Route path="exit" element={<ExitUserPage setIsAuth={setIsAuth} />} />
+               <Route path="exit" element={<ExitUserPage />} />
             </Route>
          </Route>
 
          {/* Страница входа */}
-         <Route path="/sign-in" element={<SignInPage setIsAuth={setIsAuth} />} />
+         <Route path="/sign-in" element={<SignInPage />} />
          {/* Страница регистрации */}
-         <Route path="/sign-up" element={<SignUpPage setIsAuth={setIsAuth} />} />
+         <Route path="/sign-up" element={<SignUpPage />} />
          {/* Страница 404 */}
          <Route path="/*" element={<NotFoundPage />} />
       </Routes>

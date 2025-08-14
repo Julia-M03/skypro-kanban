@@ -63,10 +63,6 @@ export function PopBrowse() {
     });
   };
 
-  if (!task) {
-    return <Navigate to={"/"} />;
-  }
-
   if (!editCard) {
     return null
   }

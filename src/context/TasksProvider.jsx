@@ -10,7 +10,6 @@ const TasksProvider = ({ children }) => {
    const [error, setError] = useState("");
    const { user } = useContext(AuthContext);
 
-
    useEffect(() => {
       const loadTasks = async () => {
          setHasGot(false);
@@ -24,7 +23,9 @@ const TasksProvider = ({ children }) => {
             setHasGot(true);
          }
       };
-      loadTasks();
+
+      if (user.token)
+         loadTasks();
    }, [user.token]);
 
    return (

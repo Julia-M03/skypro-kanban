@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import { checkLs } from "../utils/checkLs";
+import { checkLs, getEmptyUser } from "../utils/checkLs";
 
 
 const AuthProvider = ({ children }) => {
@@ -24,11 +24,12 @@ const AuthProvider = ({ children }) => {
          localStorage.setItem("userInfo", JSON.stringify(userData));
       } else {
          localStorage.removeItem("userInfo");
+         setUser(getEmptyUser())
       }
    };
 
    const login = (loginData) => {
-      updateUserInfo(loginData);
+      updateUserInfo({...loginData, isAuth: true});
       return true;
    };
 
@@ -37,8 +38,12 @@ const AuthProvider = ({ children }) => {
       return true;
    };
 
+   function setIsAuth(isAuth) {
+      setUser({ ...user, isAuth })
+   }
+
    return (
-      <AuthContext.Provider value={{ user, login, logout, updateUserInfo }}>
+      <AuthContext.Provider value={{ user, login, logout, updateUserInfo, setIsAuth }}>
          {children}
       </AuthContext.Provider>
    );
